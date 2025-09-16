@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Tetugaku.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="r7-%E9%9B%86%E4%B8%AD%E8%AC%9B%E7%BE%A9%E5%80%AB%E7%90%86%E5%AD%A6">R7 集中講義「倫理学」</h1>
+<p>山崎先生</p>
+<ul>
+<li><a href="#r7-%E9%9B%86%E4%B8%AD%E8%AC%9B%E7%BE%A9%E5%80%AB%E7%90%86%E5%AD%A6">R7 集中講義「倫理学」　</a>
+<ul>
+<li><a href="#%E6%95%99%E7%A7%91%E6%9B%B8%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6">教科書について</a></li>
+</ul>
+</li>
+<li><a href="#%E5%93%B2%E5%AD%A6%E3%81%AE%E4%B8%AD%E3%81%AE%E5%80%AB%E7%90%86%E5%AD%A6">哲学の中の倫理学</a>
+<ul>
+<li><a href="#%E5%80%AB%E7%90%86%E5%AD%A6"><strong>倫理学</strong></a>
+<ul>
+<li><a href="#%E5%80%AB%E7%90%86%E5%AD%A6%E3%81%AE%E7%A8%AE%E9%A1%9E"><strong>倫理学の種類</strong></a></li>
+<li><a href="#%E5%90%88%E7%90%86%E7%9A%84%E5%88%A4%E6%96%AD%E3%81%A8%E3%81%AF"><strong>合理的判断とは？</strong></a></li>
+<li><a href="#%E9%AB%98%E6%A0%A1%E5%80%AB%E7%90%86%E3%81%A8%E3%81%AE%E9%81%95%E3%81%84"><strong>高校倫理との違い</strong></a></li>
+<li><a href="#%E9%AB%98%E6%A0%A1%E5%80%AB%E7%90%86%E3%81%AE%E6%8E%88%E6%A5%AD%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8B%E6%98%A0%E7%94%BB%E3%81%AE%E6%B4%BB%E7%94%A8">高校倫理の授業における映画の活用</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E3%83%A1%E3%82%BF%E5%80%AB%E7%90%86%E5%AD%A6">メタ倫理学</a>
+<ul>
+<li><a href="#%E5%80%AB%E7%90%86%E5%AD%A6%E3%81%AE%E5%95%8F%E3%81%84%E3%81%AB%E7%AD%94%E3%81%88%E3%81%AF%E3%81%AA%E3%81%84">倫理学の問いに答えはない？</a></li>
+<li><a href="#%E5%AE%A2%E8%A6%B3%E4%B8%BB%E7%BE%A9"><strong>客観主義</strong></a>
+<ul>
+<li><a href="#%E5%AE%A2%E8%A6%B3%E4%B8%BB%E7%BE%A9%E3%81%B8%E3%81%AE%E6%89%B9%E5%88%A4">客観主義への批判</a></li>
+</ul>
+</li>
+<li><a href="#%E4%B8%BB%E8%A6%B3%E4%B8%BB%E7%BE%A9"><strong>主観主義</strong></a>
+<ul>
+<li><a href="#%E4%B8%BB%E8%A6%B3%E4%B8%BB%E7%BE%A9%E3%81%B8%E3%81%AE%E6%89%B9%E5%88%A4">主観主義への批判</a></li>
+</ul>
+</li>
+<li><a href="#%E9%81%93%E5%BE%B3%E7%9A%84%E7%9B%B8%E5%AF%BE%E4%B8%BB%E7%BE%A9"><strong>道徳的相対主義</strong></a>
+<ul>
+<li><a href="#%E5%8F%8D%E8%AB%96">反論</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E8%A6%8F%E7%AF%84%E5%80%AB%E7%90%86%E5%AD%A6">規範倫理学</a>
+<ul>
+<li><a href="#%E5%8A%9F%E5%88%A9%E4%B8%BB%E7%BE%A9"><strong>功利主義</strong></a>
+<ul>
+<li><a href="#%E5%8A%9F%E5%88%A9%E4%B8%BB%E7%BE%A9%E3%81%AE%E3%83%A1%E3%83%AA%E3%83%83%E3%83%88">功利主義のメリット</a>
+<ul>
+<li><a href="#%E5%8A%9F%E5%88%A9%E4%B8%BB%E7%BE%A9%E3%81%A8%E5%88%A9%E5%B7%B1%E4%B8%BB%E7%BE%A9%E3%81%AE%E9%81%95%E3%81%84">功利主義と利己主義の違い</a></li>
+<li><a href="#%E5%8A%9F%E5%88%A9%E4%B8%BB%E7%BE%A9%E3%81%B8%E3%81%AE%E6%89%B9%E5%88%A4">功利主義への批判</a></li>
+</ul>
+</li>
+<li><a href="#%E9%81%B8%E5%A5%BD%E5%85%85%E8%B6%B3">選好充足</a>
+<ul>
+<li><a href="#%E9%81%B8%E5%A5%BD%E5%85%85%E8%B6%B3%E3%81%AE%E5%95%8F%E9%A1%8C%E7%82%B9">選好充足の問題点</a></li>
+</ul>
+</li>
+<li><a href="#%E5%8A%9F%E5%88%A9%E4%B8%BB%E7%BE%A9%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E7%BE%A9%E5%8B%99%E3%82%92%E6%89%B1%E3%81%86">功利主義を使って、義務を扱う</a></li>
+</ul>
+</li>
+<li><a href="#%E7%BE%A9%E5%8B%99%E8%AB%96"><strong>義務論</strong></a>
+<ul>
+<li><a href="#%E3%82%AB%E3%83%B3%E3%83%88%E3%81%AE%E8%80%83%E3%81%88%E6%96%B9"><strong>カントの考え方</strong></a>
+<ul>
+<li><a href="#%E5%95%8F%E9%A1%8C%E7%82%B9">問題点</a></li>
+</ul>
+</li>
+<li><a href="#%E7%BE%A9%E5%8B%99%E8%AB%96%E3%81%AE%E3%83%A1%E3%83%AA%E3%83%83%E3%83%88">義務論のメリット</a></li>
+<li><a href="#%E7%BE%A9%E5%8B%99%E8%AB%96%E3%81%AE%E3%83%87%E3%83%A1%E3%83%AA%E3%83%83%E3%83%88">義務論のデメリット</a></li>
+</ul>
+</li>
+<li><a href="#%E5%8A%9F%E5%88%A9%E4%B8%BB%E7%BE%A9-vs-%E7%BE%A9%E5%8B%99%E8%AB%96"><strong>功利主義</strong> vs <strong>義務論</strong></a></li>
+</ul>
+</li>
+</ul>
+<h2 id="%E6%95%99%E7%A7%91%E6%9B%B8%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6">教科書について</h2>
+<p>この教科書の著者は、大陸系の研究者の著書である。すなわち、英米系の研究者の視点が欠落していることに留意する必要がある。</p>
+<p>また、倫理学という分野は、分析系の研究があまりメジャーでなく、その視点も欠落していることに留意する必要がある。</p>
+<hr>
+<h1 id="%E5%93%B2%E5%AD%A6%E3%81%AE%E4%B8%AD%E3%81%AE%E5%80%AB%E7%90%86%E5%AD%A6">哲学の中の倫理学</h1>
+<p>倫理学は哲学の中の一つ。</p>
+<p><strong>哲学</strong>：<strong>当たり前に見える根本概念を徹底的に反省、分析する営み</strong></p>
+<table>
+<thead>
+<tr>
+<th>分野</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>形而上学</td>
+<td>時間 存在 論理</td>
+</tr>
+<tr>
+<td>認識論</td>
+<td>知識</td>
+</tr>
+<tr>
+<td>言語哲学</td>
+<td>意味</td>
+</tr>
+<tr>
+<td>行為論</td>
+<td>行為とは？</td>
+</tr>
+<tr>
+<td>宗教哲学</td>
+<td>宗教上の哲学</td>
+</tr>
+<tr>
+<td>哲学史</td>
+<td>哲学の歴史</td>
+</tr>
+<tr>
+<td>論理学</td>
+<td>証明論　数学などで使われる</td>
+</tr>
+<tr>
+<td>心の哲学</td>
+<td>心脳二元論など</td>
+</tr>
+<tr>
+<td>倫理学</td>
+<td>正・不正の基準</td>
+</tr>
+</tbody>
+</table>
+<p>c.f.　概念工学：人権などを作る</p>
+<h2 id="%E5%80%AB%E7%90%86%E5%AD%A6"><strong>倫理学</strong></h2>
+<p>倫理：<strong>合理的に考える</strong>必要がある。つまり、<strong>全てにおいて理由が必要</strong>である。</p>
+<p>直観は対立するため、必ずしも信頼できるものではないし、バイアスもかかっている。</p>
+<h3 id="%E5%80%AB%E7%90%86%E5%AD%A6%E3%81%AE%E7%A8%AE%E9%A1%9E"><strong>倫理学の種類</strong></h3>
+<table>
+<thead>
+<tr>
+<th>分野</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>規範倫理</td>
+<td>功利主義　義務論　徳倫理学</td>
+</tr>
+<tr>
+<td>メタ倫理</td>
+<td>実在　非実在　「私たちはなぜ倫理的でなければならないか」</td>
+</tr>
+<tr>
+<td>応用倫理</td>
+<td>生命倫理学　環境倫理学など個別場面への応用　（高校倫理の教科書では、資料集のトピックで個別の問題が書かれている　Ex)脳死, 環境問題）</td>
+</tr>
+<tr>
+<td>記述倫理</td>
+<td>その国や地域の倫理の状況を記録する</td>
+</tr>
+</tbody>
+</table>
+<h3 id="%E5%90%88%E7%90%86%E7%9A%84%E5%88%A4%E6%96%AD%E3%81%A8%E3%81%AF"><strong>合理的判断とは？</strong></h3>
+<p>合理的判断に必要な要素は３つ</p>
+<ol>
+<li>
+<p><strong>事実と価値の区別</strong></p>
+<p>「～である」は事実、「～であるべき」は価値</p>
+<p>事実判断から価値判断は<strong>直に</strong>出ない。</p>
+<pre class="hljs"><code><div>Ex）「昔から牛を使っている」（事実）
+               ↓
+   「牛を利用してよい」（価値）
+
+ この論理の持って生き方は合理的ではない
+</div></code></pre>
+</li>
+<li>
+<p><strong>判断の一貫性</strong></p>
+<p>道徳的に重要な違いがない限り、全てにおいて一貫性がある。</p>
+</li>
+<li>
+<p><strong>公平な視点</strong></p>
+<p>自己中心的ではなくて、普遍な判断をする。
+ただし、普遍性を極めすぎても、ほかの面と両立しなくなるので難しい…</p>
+</li>
+</ol>
+<h3 id="%E9%AB%98%E6%A0%A1%E5%80%AB%E7%90%86%E3%81%A8%E3%81%AE%E9%81%95%E3%81%84"><strong>高校倫理との違い</strong></h3>
+<table>
+<thead>
+<tr>
+<th>分野</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>倫理学</td>
+<td>Ethics　学問としての倫理学　善/悪,　正/不正を探求</td>
+</tr>
+<tr>
+<td>高校倫理</td>
+<td>哲学史の要素強め　暗記（最近は脱暗記傾向）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="%E9%AB%98%E6%A0%A1%E5%80%AB%E7%90%86%E3%81%AE%E6%8E%88%E6%A5%AD%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8B%E6%98%A0%E7%94%BB%E3%81%AE%E6%B4%BB%E7%94%A8">高校倫理の授業における映画の活用</h3>
+<ul>
+<li>抽象的なものが具体化できるので、理解しやすい</li>
+<li>例示と理論の間の誤差を学ぶことができる（逆効果になることも？）</li>
+<li>ディティールが議論の邪魔になる恐れ（中高生はそっちへ行きがち）</li>
+<li>メモ取らせたり、時間に気を使わないと、睡眠導入剤になる</li>
+</ul>
+<p>これは、適切な発問やワークシートでカバーする必要がある</p>
+<hr>
+<h1 id="%E3%83%A1%E3%82%BF%E5%80%AB%E7%90%86%E5%AD%A6">メタ倫理学</h1>
+<p>倫理に答えはあるのか？
+倫理の事柄は普遍的であるのか？
+倫理的な判断とは何か？
+倫理的な判断は動機づけの力を持つか？</p>
+<p><strong>根本を問う</strong>学問分野</p>
+<pre><code>Ex）イスラム圏での女性の教育差別
+イスラムの文化では、女性は教育において差別される。しかし、彼らの文化では正しい価値観であり、それをほかの国の文化の目線から批判することは許されるのか？
+</code></pre>
+<h3 id="%E5%80%AB%E7%90%86%E5%AD%A6%E3%81%AE%E5%95%8F%E3%81%84%E3%81%AB%E7%AD%94%E3%81%88%E3%81%AF%E3%81%AA%E3%81%84">倫理学の問いに答えはない？</h3>
+<p><strong>倫理学の問いに「答えはないのではない」というのは、証明できていない。</strong> そうではなくて、<strong>答えを出すのが難しい</strong>ということはわかる。</p>
+<h2 id="%E5%AE%A2%E8%A6%B3%E4%B8%BB%E7%BE%A9"><strong>客観主義</strong></h2>
+<p>「リンゴは丸いのはなぜ？」という問いは「丸い」という<strong>客観的な性質</strong>を持つから言える。</p>
+<p>→ 「良さ」なども客観的性質があるという考え方</p>
+<ul>
+<li>客観性
+<ul>
+<li>
+<p>「善さ」を普遍的なものだと考えられる</p>
+</li>
+<li>
+<p>ある行為が善いのは、実際にその行為が善いからであって、それは当の行為を見てみればだれにでもわかる</p>
+</li>
+<li>
+<p>つまり、誰がどう見ても正しいという概念が生まれる</p>
+</li>
+</ul>
+</li>
+<li>安定性・確実性
+<ul>
+<li>善さも対象側に変化がない限り、安定している</li>
+</ul>
+</li>
+<li>可謬性
+<ul>
+<li>私たちは、道徳的進歩を認められる</li>
+</ul>
+</li>
+</ul>
+<h3 id="%E5%AE%A2%E8%A6%B3%E4%B8%BB%E7%BE%A9%E3%81%B8%E3%81%AE%E6%89%B9%E5%88%A4">客観主義への批判</h3>
+<ul>
+<li>道徳的性質は客観的か？（味のように、私たち主観の側が投影しているだけでは…）</li>
+<li>仮に客観的な善さや正しさがあったとしても、一体それが誰にどうやってわかるの？</li>
+</ul>
+<h2 id="%E4%B8%BB%E8%A6%B3%E4%B8%BB%E7%BE%A9"><strong>主観主義</strong></h2>
+<ul>
+<li>差異の説明
+<ul>
+<li>倫理的な判断の個人差を説明できる　「人それぞれ」</li>
+</ul>
+</li>
+<li>認識論的に優位</li>
+<li>倫理の身分
+<ul>
+<li>倫理的な価値は「私たちのものだ」といえる。</li>
+<li>倫理のために人間があるわけではなく、人間のために倫理があるのではないか？</li>
+</ul>
+</li>
+</ul>
+<h4 id="%E4%B8%BB%E8%A6%B3%E4%B8%BB%E7%BE%A9%E3%81%B8%E3%81%AE%E6%89%B9%E5%88%A4">主観主義への批判</h4>
+<ul>
+<li>奴隷制や男尊女卑を肯定する道徳観も「人それぞれ」で成立する</li>
+<li>外部からの批判ができないので、倫理は権力者や多数派のものになってしまう</li>
+<li>大悪人を批判することはできなくなる</li>
+</ul>
+<h2 id="%E9%81%93%E5%BE%B3%E7%9A%84%E7%9B%B8%E5%AF%BE%E4%B8%BB%E7%BE%A9"><strong>道徳的相対主義</strong></h2>
+<p>道徳的な事柄が当てはまるかどうかは、文化や社会によって変わるという考え方</p>
+<pre><code>Ex）死者への弔い方も火葬・土葬・死者の肉を食らうなど様々で、それが正しいかは文化で異なる
+</code></pre>
+<h3 id="%E5%8F%8D%E8%AB%96">反論</h3>
+<ul>
+<li>（例に対して）周辺信念が違うだけで、死者を弔う気持ちは一緒なら道徳は同じであろう</li>
+<li>事実として違っていても道徳的に批判ができなくなる
+<ul>
+<li>Ex）地球平面説は科学で否定できるが、道徳的観点から批判不可能</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="%E8%A6%8F%E7%AF%84%E5%80%AB%E7%90%86%E5%AD%A6">規範倫理学</h1>
+<p>行為の <strong>「正・不正」の基準</strong> を扱う分野</p>
+<p>「私たちはどのように行為すべきか？」</p>
+<p>以下の考え方が対立</p>
+<blockquote>
+<p>帰結主義：正・不正の基準は「帰結」にある</p>
+</blockquote>
+<blockquote>
+<p>義務論：正・不正の基準は「義務」にある</p>
+</blockquote>
+<blockquote>
+<p>徳倫理学：正・不正の基準は「徳」にある (今回は扱わず)</p>
+</blockquote>
+<h2 id="%E5%8A%9F%E5%88%A9%E4%B8%BB%E7%BE%A9"><strong>功利主義</strong></h2>
+<p><strong>功利性の原理</strong></p>
+<p>行為の正・不正の基準は帰結であり、関係者の幸福を最大化するような行為を選択すべし。（最大多数の最大幸福）</p>
+<ol>
+<li><strong>帰結主義</strong>
+：結果よければすべてよし</li>
+<li><strong>福利主義</strong> ：人々の幸福/不幸で決めるべき（快楽/苦痛や選考充足で決める）</li>
+<li><strong>単純加算主義</strong> ：得られた関係者の幸福は、全員の幸福を単純加算することでランク付けされる（功利主義における公平性や平等性を担保する部分）</li>
+<li><strong>最大化</strong> ：ある一群の選択肢が与えられたとき、望ましさの高い選択肢を選ぶべき</li>
+</ol>
+<h3 id="%E5%8A%9F%E5%88%A9%E4%B8%BB%E7%BE%A9%E3%81%AE%E3%83%A1%E3%83%AA%E3%83%83%E3%83%88">功利主義のメリット</h3>
+<ul>
+<li>
+<p>功利主義はシンプルかつ整合的で、適用範囲も広い。</p>
+</li>
+<li>
+<p>またモラルジレンマに一義的な回答を与えられる。</p>
+</li>
+</ul>
+<h4 id="%E5%8A%9F%E5%88%A9%E4%B8%BB%E7%BE%A9%E3%81%A8%E5%88%A9%E5%B7%B1%E4%B8%BB%E7%BE%A9%E3%81%AE%E9%81%95%E3%81%84">功利主義と利己主義の違い</h4>
+<p>よく混同されるので注意</p>
+<blockquote>
+<p>功利主義：<strong>自分も他人も</strong> 幸福になる道を目指そう</p>
+</blockquote>
+<p>winwinを目指すのが功利主義。なので、たまに自己犠牲を要求される。</p>
+<blockquote>
+<p>利己主義：<strong>他人より自分が</strong> 幸福になる道を探そう</p>
+</blockquote>
+<h4 id="%E5%8A%9F%E5%88%A9%E4%B8%BB%E7%BE%A9%E3%81%B8%E3%81%AE%E6%89%B9%E5%88%A4">功利主義への批判</h4>
+<ul>
+<li>
+<p>どうやって幸福を比較する？</p>
+<p>→厚生経済学の考えを使えば、お金に換算できる</p>
+</li>
+<li>
+<p>快楽＝幸福？</p>
+<p>快楽を望まない場合があるのではないか</p>
+<pre class="hljs"><code><div>Nozick, 1974,「経験機械」
+
+あなたが望む経験をなんでも与えてくれる経験機械なるものがあるとしよう。超一流の神経心理学者であれば、あなたの脳を刺激することで、偉大な小説を書いたり、友達をつくったり、おもしろい本を読んだりしているとあなたに考えさせたり感じさせたりできるだろう。そのあいだずっと、あなたは脳に電極をつけた状態でタンクのなかに浮かんでいることになる。さて、あなたはじぶんの人生の経験をすべて事前にプログラムして、一生この機械に繋がれていたいだろうか。
+</div></code></pre>
+<p>「快楽」は主観的な心の状態。</p>
+</li>
+<li>
+<p>直観に反する行為が許容されてしまう。大勢のために一人が犠牲になる場合がある。</p>
+<ul>
+<li>この問題は、 選好充足の考え方で解決可能</li>
+</ul>
+</li>
+</ul>
+<h3 id="%E9%81%B8%E5%A5%BD%E5%85%85%E8%B6%B3">選好充足</h3>
+<p>いくつかの選択肢が与えられたときに、そのあいだでつけられる序列</p>
+<ul>
+<li>
+<p>選好された選択肢が実現すれば「幸福」</p>
+<p>➡「幸福」と「望むこと」のギャップはない！</p>
+</li>
+<li>
+<p>「充足」は「心理的な充実感」ではなく、現実に果たされたかどうか（心の状態より見通しやすい）</p>
+</li>
+<li>
+<p>じつは個人が経験しなくともOK（e. g. 遺言）</p>
+</li>
+</ul>
+<h4 id="%E9%81%B8%E5%A5%BD%E5%85%85%E8%B6%B3%E3%81%AE%E5%95%8F%E9%A1%8C%E7%82%B9">選好充足の問題点</h4>
+<ol>
+<li>
+<p><strong>適応的選好形成</strong></p>
+<p>人は、環境で適応する形で選好を決める。つまり、環境によって、本人の選好は制限されている。その状況では、例えば、人権を知らないひとが人権を欲しいと言うわけがない。</p>
+</li>
+<li>
+<p><strong>選択自体が選好に影響を与える場合</strong></p>
+<p>洗脳の前には洗脳を選好していなかったが、洗脳後には選好するようになってしまった……？</p>
+</li>
+<li>
+<p><strong>直観に反する行為が許容</strong></p>
+</li>
+</ol>
+<p>これに対応するために、義務論の考えを組み込みながら、理論をパワーアップ</p>
+<h3 id="%E8%A6%8F%E5%89%87%E5%8A%9F%E5%88%A9%E4%B8%BB%E7%BE%A9"><strong>規則功利主義</strong></h3>
+<p>功利的な判断の対象は行為ではなく<strong>規則</strong>。規則の採択の時に功利判断を下し、行為の時に幸福計算を不要にする。</p>
+<pre><code>Ex）「約束を守る」という規則を採択して、ここの行為の選択場面では、当該の規則に絶対的に従う。
+</code></pre>
+<p>絶対的にというところに義務論要素</p>
+<p><strong>問題点</strong></p>
+<ul>
+<li>功利主義としてあり？
+<ul>
+<li>個別の場面で明らかに不幸になる人が大勢いたとしても規則には絶対順守しなければならない</li>
+</ul>
+</li>
+<li>本当に義務の絶対性は認められるのか？
+<ul>
+<li>その義務はどうして絶対といえるのか</li>
+</ul>
+</li>
+</ul>
+<h3 id="%E4%BA%8C%E5%B1%A4%E7%90%86%E8%AB%96">二層理論</h3>
+<p>現代では、もっとも洗練されている功利主義</p>
+<p>道徳的な思考のレベルを二つに分ける。</p>
+<ol>
+<li>
+<p>直感的レベル</p>
+<p>単純な直観的規則に絶対的に従う</p>
+<p>功利計算はコストが高く、バイアスがかかるので、日常では直観に従う方がよい</p>
+</li>
+<li>
+<p>批判的レベル</p>
+<p>例外的な状態において、個々の行為に個別的に功利計算する。</p>
+<p>計算するまでもなく、直観的にまずそうな行為や、直観同士がぶつかるものの場合、功利計算をすること</p>
+</li>
+</ol>
+<p>この２つを柔軟に行き来できることが大切</p>
+<h3 id="%E5%8A%9F%E5%88%A9%E4%B8%BB%E7%BE%A9%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E7%BE%A9%E5%8B%99%E3%82%92%E6%89%B1%E3%81%86">功利主義を使って、義務を扱う</h3>
+<p>「嘘をつくな」という義務は、「従えば<strong>たいてい</strong>幸福」という経験則に基づくといえる。</p>
+<p>問題は「たいてい」というところ。幸福計算ができない。</p>
+<h2 id="%E7%BE%A9%E5%8B%99%E8%AB%96"><strong>義務論</strong></h2>
+<p>功利主義の対抗馬。
+行為の正・不正の基準は「義務」にかなっているかによって決まる。</p>
+<pre class="hljs"><code><div> 帰結とは関係なく、行為自体が正しいか正しくないか
+</div></code></pre>
+<h3 id="%E3%82%AB%E3%83%B3%E3%83%88%E3%81%AE%E8%80%83%E3%81%88%E6%96%B9"><strong>カントの考え方</strong></h3>
+<p>カントが求めるのは <strong>「無条件に善いもの」＝「善意志」</strong>（功利主義では幸福）</p>
+<blockquote>
+<p>我々が無条件に善とみとめうるものとしては、この世界の内にもまた外にも、ただ善なる意志しか考えられない。</p>
+</blockquote>
+<p>行為の正当性は意志にある。<strong>正しい行為とは、たまたま義務にかなっている行為ではなく、義務に基づく行為が正しい。</strong></p>
+<p>例えば…</p>
+<pre class="hljs"><code><div>Ex）人を助けるときにどうすべきか
+
+1. お金や名声のために助ける（適法的）
+
+2. そうすべきだから助ける（道徳的）
+</div></code></pre>
+<p>このような時、カントの言う善意志は、2になる。
+意志が義務に基づくのは、<strong>道徳法則への純粋な尊敬に働き動かされるとき</strong>。私たちは理性を持つが、感性も持つ。<strong>感性に打ち勝ち、義務に基づく行為をすべき</strong>。</p>
+<p><strong>人格</strong>＝道徳的な行為をする者</p>
+<p>弱い人間は常に道徳法則にしたがうわけではない。
+→人間にとって、道徳法則は「命法」（命令形）という姿で提示される。</p>
+<ul>
+<li>
+<p><strong>仮言命法</strong></p>
+<p>「○○なら××せよ」　条件付き</p>
+</li>
+<li>
+<p><strong>定言命法</strong></p>
+<p>××せよという無条件の命法</p>
+</li>
+</ul>
+<p><strong>道徳法則は、普遍性を持つので、定言命法</strong></p>
+<p>〇 道徳法則は３つ性質がある</p>
+<ul>
+<li>
+<p><strong>第一定式</strong></p>
+<blockquote>
+<p>汝の確立が、普遍的法則となることを汝が同時にその格率によって意志しうる場合にのみ、その格率に従って行為せよ。</p>
+</blockquote>
+<p><strong>行為の主観的規則</strong></p>
+<p>格率を普遍化したときに、うまくできるなら、それは道徳法則にかなう。</p>
+</li>
+<li>
+<p><strong>第二定式</strong></p>
+<blockquote>
+<p>汝の人格の中にも、ほかのすべての人の人格のなかにもある人間性を、汝がいつも同時に目的として用い、決して<strong>単に</strong>手段として<strong>のみ</strong>用いない、というようなふうに行為せよ。</p>
+</blockquote>
+<p>カントは「物件」と「人格」を区別する。</p>
+<p>物件：理性を持たず、目的のための手段。「価格」が備わる</p>
+<p>人格：理性を持ち、それ自体が目的となる。「理性」が備わる。</p>
+<p>要は、<strong>人をモノ扱いしちゃダメ</strong>という考え方</p>
+<p>ただし、「単に」手段として「のみ」なので、<strong>相手が認めない目的のために利用するのはダメ</strong>というだけであり、相手の合意があればOK</p>
+</li>
+<li>
+<p><strong>第三定式</strong></p>
+<blockquote>
+<p>意志がその格率によって自己自身を同時に普遍的立法者ともみなしうるようなしかたでのみ行為せよ。</p>
+</blockquote>
+<p>自分自身を「普遍的立法者」とみなす＝<strong>自律</strong></p>
+<p>→自らの行為の法則を自ら立て、それに従う。</p>
+<p>自分のことは自分で決める＝<strong>自由</strong></p>
+</li>
+</ul>
+<h4 id="%E5%95%8F%E9%A1%8C%E7%82%B9">問題点</h4>
+<ul>
+<li>
+<p>義務は<strong>絶対的で無条件</strong>であり、いかなるときも嘘をついてはならない。</p>
+<p>→ いい嘘に対しては…？カントは、道徳法則を捻じ曲げてまですることではないと説明する。</p>
+</li>
+<li>
+<p><strong>モラルジレンマ</strong>の対応ができない</p>
+<p>→ カントは、<strong>完全義務</strong>と<strong>不完全義務</strong>を区別し、義務の間に序列を作ることで対処。ただ、序列付けは難しくね？という反論もある。</p>
+</li>
+</ul>
+<h3 id="%E7%BE%A9%E5%8B%99%E8%AB%96%E3%81%AE%E3%83%A1%E3%83%AA%E3%83%83%E3%83%88">義務論のメリット</h3>
+<ul>
+<li>何をすればいいのかわかりやすく計算不要</li>
+<li>不公平や権利侵害が起こり得ない
+<ul>
+<li>大勢のために一人を犠牲にすることは認められない</li>
+</ul>
+</li>
+<li><strong>行為者相対性</strong>がある</li>
+</ul>
+<h3 id="%E7%BE%A9%E5%8B%99%E8%AB%96%E3%81%AE%E3%83%87%E3%83%A1%E3%83%AA%E3%83%83%E3%83%88">義務論のデメリット</h3>
+<ul>
+<li>モラルジレンマに対応しにくい</li>
+<li>義務があらかじめ定まっていない場合は？
+<ul>
+<li>脳死などの新しい状況が科学の発達で発生</li>
+</ul>
+</li>
+<li>既存の義務そのものの妥当性は？
+<ul>
+<li>「女は専業主婦になるべき」みたいなものは理不尽</li>
+</ul>
+</li>
+</ul>
+<h2 id="%E5%8A%9F%E5%88%A9%E4%B8%BB%E7%BE%A9-vs-%E7%BE%A9%E5%8B%99%E8%AB%96"><strong>功利主義</strong> vs <strong>義務論</strong></h2>
+<p>Ex）トロリー問題</p>
+<p>トロリーが暴走している。このままでは５人が縛り付けられているところへ向かう。もう片方には１人縛り付けられている。あなたはトロリーの進路を変えるか</p>
+<hr>
+<h1 id=""></h1>
+
+</body>
+</html>
